@@ -1,6 +1,5 @@
 function addToDisplay(value) {
    var currentDisplay = document.getElementById("currentDisplay");
-   var previousDisplay = document.getElementById("previousDisplay");
    var lastChar = currentDisplay.value.slice(-1);
    if (currentDisplay.value.length >= 15) {
       return;
@@ -19,7 +18,7 @@ function addToDisplay(value) {
       return; // Impede a adição de operadores matemáticos após a vírgula
    }
    currentDisplay.value += value;
- }
+}
 
  function clearDisplay() {
    var currentDisplay = document.getElementById("currentDisplay");
@@ -50,3 +49,32 @@ function addToDisplay(value) {
       currentDisplay.value = "Erro";
    }
 }
+
+document.addEventListener('keydown', function(event) {
+   const key = event.key;
+   if (/[0-9]/.test(key)) {
+       // Verifique se a tecla pressionada é um número de 0 a 9
+       addToDisplay(key);
+   }  else if (key === "+" || key === "-") {
+       // Verifique se a tecla pressionada é um operador
+       addToDisplay(key);
+   } else if (key === "*") {
+      // Quando a tecla pressionada é "*", mostre "x" em vez de "*"
+      addToDisplay("x");
+   } else if (key === "/") {
+      // Quando a tecla pressionada é "/", mostre "÷" em vez de "/"
+      addToDisplay("÷");
+   } else if (key === "=" || key === "Enter") {
+       // Verifique se a tecla pressionada é igual a '=' ou 'Enter'
+       calculate();
+   } else if (key === "Backspace") {
+       // Verifique se a tecla pressionada é 'Backspace' para deletar
+       deleteCharacter();
+   } else if (key === "Delete") {
+       // Verifique se a tecla pressionada é 'Delete' para limpar
+       clearDisplay();
+   } else if (key === ",") {
+       // Verifique se a tecla pressionada é uma vírgula
+       addToDisplay(",");
+   }
+});
